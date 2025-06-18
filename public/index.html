@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TikTok Downloader</title>
+</head>
+<body>
+  <h1>TikTok Video Downloader</h1>
+  <input id="url" placeholder="Enter TikTok URL"><br><br>
+  <button onclick="getDownload()">Get Download Link</button>
+
+  <p id="result"></p>
+
+  <script>
+    async function getDownload() {
+      const url = document.getElementById("url").value;
+      const res = await fetch(`/api/tiktok?url=${encodeURIComponent(url)}`);
+      const data = await res.json();
+      document.getElementById("result").innerHTML = data.download
+        ? `<a href="${data.download}" target="_blank">Download Video</a>`
+        : data.error;
+    }
+  </script>
+</body>
+</html>
